@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 /// Dio client for making HTTP requests
 class DioClient {
@@ -23,10 +24,8 @@ class DioClient {
 
     // Add interceptors for logging (optional)
     _dio.interceptors.add(
-      LogInterceptor(
+      PrettyDioLogger(
         requestBody: true,
-        responseBody: true,
-        responseHeader: false,
       ),
     );
   }

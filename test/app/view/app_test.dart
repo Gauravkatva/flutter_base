@@ -11,5 +11,10 @@ void main() {
       await tester.pumpWidget(App());
       expect(find.byType(CounterPage), findsOneWidget);
     });
+
+    testWidgets('Finds Pokemon Button', (tester) async {
+      await tester.pumpWidget(App());
+      expect(find.text('View Pokemon List'), findsOneWidget);
+    });
   });
 }

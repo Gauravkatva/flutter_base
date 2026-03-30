@@ -28,6 +28,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
 
+  // Ensure Flutter bindings are initialized (required for platform channels)
+  WidgetsFlutterBinding.ensureInitialized();
+
   // Initialize dependencies
   await initializeDependencies();
 
