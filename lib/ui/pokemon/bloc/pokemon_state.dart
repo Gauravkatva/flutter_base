@@ -6,6 +6,23 @@ sealed class PokemonState {
   const PokemonState();
 }
 
+class PkState extends Equatable {
+  const PkState({
+    this.isLoading = false,
+  });
+  final bool isLoading;
+  PkState copyWith({
+    bool? isLoading,
+  }) {
+    return PkState(
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+
+  @override
+  List<Object?> get props => [isLoading];
+}
+
 /// Initial state
 final class PokemonInitial extends PokemonState {
   const PokemonInitial();
@@ -47,6 +64,26 @@ final class PokemonLoaded extends PokemonState {
       errorMessage: errorMessage,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is PokemonLoaded &&
+        other.pokemons == pokemons &&
+        other.hasMore == hasMore &&
+        other.currentOffset == currentOffset &&
+        other.isLoadingMore == isLoadingMore &&
+        other.errorMessage == errorMessage;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    pokemons,
+    hasMore,
+    currentOffset,
+    isLoadingMore,
+    errorMessage,
+  );
 }
 
 /// Error state

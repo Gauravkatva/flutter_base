@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_appp/di/injection.dart';
+import 'package:my_appp/domain/data/pokemon/pokemon_api.dart';
 import 'package:my_appp/ui/pokemon/bloc/pokemon_bloc.dart';
 import 'package:my_appp/ui/pokemon/ui/pokemon_list_item.dart';
 
@@ -17,7 +18,9 @@ class PokemonListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<PokemonBloc>()..add(const LoadPokemonList()),
+      create: (context) =>
+          PokemonBloc(pokemonApi: getIt.get<PokemonApi>())
+            ..add(const LoadPokemonList()),
       child: const PokemonListView(),
     );
   }
@@ -101,8 +104,8 @@ class _PokemonListViewState extends State<PokemonListView> {
           return switch (state) {
             PokemonInitial() => const SizedBox.shrink(),
             PokemonLoading() => const Center(
-                child: CircularProgressIndicator(),
-              ),
+              child: CircularProgressIndicator(),
+            ),
             PokemonLoaded()
                 when state.pokemons.isEmpty && state.errorMessage != null =>
               Center(
@@ -123,9 +126,9 @@ class _PokemonListViewState extends State<PokemonListView> {
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        context
-                            .read<PokemonBloc>()
-                            .add(const LoadPokemonList());
+                        context.read<PokemonBloc>().add(
+                          const LoadPokemonList(),
+                        );
                       },
                       child: const Text('Retry'),
                     ),
@@ -133,28 +136,28 @@ class _PokemonListViewState extends State<PokemonListView> {
                 ),
               ),
             PokemonLoaded() => RefreshIndicator(
-                onRefresh: () async {
-                  context.read<PokemonBloc>().add(const RefreshPokemonList());
+              onRefresh: () async {
+                context.read<PokemonBloc>().add(const RefreshPokemonList());
+              },
+              child: ListView.builder(
+                controller: _scrollController,
+                itemCount: state.hasMore
+                    ? state.pokemons.length + 1
+                    : state.pokemons.length,
+                itemBuilder: (context, index) {
+                  if (index >= state.pokemons.length) {
+                    return const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  final pokemon = state.pokemons[index];
+                  return PokemonListItem(pokemon: pokemon);
                 },
-                child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: state.hasMore
-                      ? state.pokemons.length + 1
-                      : state.pokemons.length,
-                  itemBuilder: (context, index) {
-                    if (index >= state.pokemons.length) {
-                      return const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-                    final pokemon = state.pokemons[index];
-                    return PokemonListItem(pokemon: pokemon);
-                  },
-                ),
               ),
+            ),
             _ => const SizedBox.shrink(),
           };
         },

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_appp/domain/data/model/pokemon_model.dart';
 import 'package:my_appp/domain/data/pokemon/pokemon_api.dart';
@@ -10,8 +11,8 @@ part 'pokemon_state.dart';
 class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   PokemonBloc({
     required PokemonApi pokemonApi,
-  })  : _pokemonApi = pokemonApi,
-        super(const PokemonInitial()) {
+  }) : _pokemonApi = pokemonApi,
+       super(const PokemonInitial()) {
     on<LoadPokemonList>(_onLoadPokemonList);
     on<LoadMorePokemon>(_onLoadMorePokemon);
     on<RefreshPokemonList>(_onRefreshPokemonList);

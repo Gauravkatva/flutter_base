@@ -36,6 +36,18 @@ class CounterView extends StatelessWidget {
               icon: const Icon(Icons.catching_pokemon),
               label: const Text('View Pokemon List'),
             ),
+            // ElevatedButton.icon(
+            //   // show snackbar that the feature is still under development
+            //   onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+            //     const SnackBar(
+            //       content: Text(
+            //         'Weather feature is still under development',
+            //       ),
+            //     ),
+            //   ),
+            //   icon: const Icon(Icons.sunny),
+            //   label: const Text('Weather'),
+            // ),
           ],
         ),
       ),
@@ -44,13 +56,21 @@ class CounterView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'increment',
             onPressed: () => context.read<CounterCubit>().increment(),
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8),
           FloatingActionButton(
+            heroTag: 'decrement',
             onPressed: () => context.read<CounterCubit>().decrement(),
             child: const Icon(Icons.remove),
+          ),
+          const SizedBox(height: 8),
+          FloatingActionButton(
+            heroTag: 'reset',
+            onPressed: () => context.read<CounterCubit>().reset(),
+            child: const Icon(Icons.restart_alt),
           ),
         ],
       ),
