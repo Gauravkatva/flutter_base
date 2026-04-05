@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_appp/l10n/l10n.dart';
-import 'package:my_appp/ui/luxury/views/luxury_page.dart';
+import 'package:my_appp/ui/cart/view/cart_view.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const LuxuryPage(),
+      home: const CartView(),
     );
   }
 }
