@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_appp/l10n/l10n.dart';
-import 'package:my_appp/ui/cart/view/cart_view.dart';
+import 'package:my_appp/ui/splitwise/views/split_wise_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CartView(),
+      home: const SplitWisePage(),
     );
   }
 }
