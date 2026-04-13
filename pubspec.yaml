@@ -16,7 +16,9 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
+  file_picker: ^8.1.6
   get_it: ^9.2.0
+  image_picker: ^1.0.4
   intl: ^0.20.2
   path: ^1.9.1
   pretty_dio_logger: ^1.4.0
